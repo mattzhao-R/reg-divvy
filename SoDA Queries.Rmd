@@ -1,0 +1,61 @@
+---
+title: "SoDA API Queries"
+author: "Matthew Zhao"
+output: pdf_document
+---
+
+```{r echo=FALSE,warning=FALSE}
+library(RSocrata)
+```
+
+## Overview
+
+This document will go over some basic queries for the Socrata Open Data API (SoDA). These queries are based off of queries in the Socrata Query Language (SoQL) but are slightly different since they are urls. This document specifically relates to querying divvy bike data from the Chicago Data Portal.
+
+## Getting started with the API
+
+First, you should sign up for a Chicago Data Portal account [here](https://data.cityofchicago.org/signup). Then, you should read through [this](https://dev.socrata.com/foundry/data.cityofchicago.org/fg6s-gzvg) short article about the Divvy Trips data from the Chicago Data Portal. In the App Tokens section, follow the link to sign in to the Data Portal and get an app token. This will allow you to query for data more easily. 
+
+The last step is to locate the API endpoint, which for this example using the divvy trip data is "https://data.cityofchicago.org/resource/fg6s-gzvg.json".
+
+## Intro to SoDA Querying in R
+
+Before you write any queries, you need to install and open the library RSocrata. You then can query  data from the API into RStudio using the command read.socrata(). This function takes in a number of parameters, but the primary ones we are concerned with are *url*, *app_token*, *email*, and *password.* 
+
+The *url* parameter takes in the entire query, which is a combination of the API endpoint for the dataset and the query itself. To query the entire dataset, you can simply put the API endpoint as the url as a character object. However, for the divvy bike trips and other large datasets this is **NOT** recommended. 
+
+The *app_token*, *email*, and *password* parameters are more self explanatory, and are based on your individual app token, email and password for the Chicago Data Portal. 
+
+## Writing Queries
+
+Now that we've gone over the R component of querying, let's get into actually writing the query itself. 
+
+While you can write the entire query in the *url* parameter of read.socrata(), I recommend breaking the query up into components to make it easier for yourself to read and write the query. Below is an example of a query for the divvy bike trips data.
+
+```{r}
+api_endpoint <- "https://data.cityofchicago.org/resource/fg6s-gzvg.json"
+query <- paste0(api_endpoint,"?",
+                "to_station_name=University Ave %26 57th St",
+                "&","$limit=5")
+query
+```
+
+Breaking down the query above, the *?* indicates the beginning of the query, and everything after is the query itself. The second part is the same as the filter() function from dplyr, which subsets on the rows of the data. The *&* joins the two parts of the query. When two filters are combined, it functions as a logic operator, while in this case with the *limit* it simply combines the two parts of the query. *limit* functions similar to the *head* function, and limits the query to the first n rows of the data. Here, it limits the query to only 5 rows. 
+
+Note: when the query itself contains an *&* like with street names in the example, you must replace it with %26, since the & interferes with HTML URL encoding. 
+
+This *query* can then be passed as the first argument of read.socrata() to run the query as shown below. 
+
+```{r eval = FALSE}
+df <- read.socrata(query,
+                   app_token = "your app token",
+                   email = "your email",
+                   password = "your password")
+```
+```{r echo = FALSE}
+df <- read.socrata(query,
+                   app_token = "02II4N98cTMglzlWigswMRwyR",
+                   email = "matthewzhao20@gmail.com",
+                   password = "Divvyproject2022!")
+df
+```
