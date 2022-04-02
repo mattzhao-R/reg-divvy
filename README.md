@@ -40,7 +40,7 @@ This file contains historical undergraduate enrollment numbers for the Universit
 **Temp and Precip Midway Airport.csv**<br>
 This file from NOAA contains daily weather data recorded at the Midway Airport Observatory from 2013 through 2019. There should be one observation per day.
 
-Columns (see data dictionary [here](https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf):
+Columns (see data dictionary [here](https://www1.ncdc.noaa.gov/pub/data/cdo/documentation/GHCND_documentation.pdf)):
 * AWND = Average daily wind speed (should be in mph)
 * PGTM = Peak gust time (hours and minutes, i.e., HHMM)
 * PRCP = Precipitation (should be in inches)
@@ -59,7 +59,7 @@ Columns (see data dictionary [here](https://www1.ncdc.noaa.gov/pub/data/cdo/docu
   * 07 = Dust, volcanic ash, blowing dust, blowing sand, or blowing obstruction
   * 08 = Smoke or haze
   * 09 = Blowing or drifting snow
-  * 10 = Tornado, waterspout, or funnel cloud 
+  * 10 = Tornado, waterspout, or funnel cloud
 
 [Back to TOC](#table-of-contents)
 
