@@ -6,6 +6,7 @@ library(foreach)
 library(plyr)
 library(magrittr)
 
+
 ###########################################################################
 ######################## QUERYING FOR TRIP DATA ###########################
 ###########################################################################
@@ -95,7 +96,7 @@ beg_stat <- df %>% select(start_time,stop_time,from_station_name,
 
 #import and clean library visitor data
 #add school year for control and merging 
-df_visitors <- read.csv("~/Coding/divvy/data/Library-Data.csv")
+df_visitors <- read.csv("./data/Library-Data.csv")
 
 visitors <- df_visitors %>% select(Date.of.Entry,Regenstein) %>%
   mutate(Date = mdy(Date.of.Entry), Date.of.Entry=NULL, 
@@ -107,7 +108,7 @@ visitors <- na.omit(visitors)
 
 #importing uchicago enrollment control
 #https://registrar.uchicago.edu/data-reporting/historical-enrollment/
-enroll_df <- read.csv("~/Documents/undergrad_uchi.csv")
+enroll_df <- read.csv("./data/undergrad_uchi.csv")
 enroll <- enroll_df %>% mutate(school_year = as.numeric(school_year))
 
 #trip_count is for aggregation
