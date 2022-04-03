@@ -21,7 +21,7 @@ password = "Divvytemppass0358"
 #Name of Divvy station we want to query
 reg_name = "University Ave %26 57th St"
 crerar_name = "Ellis Ave %26 58th St"
-station = crerar_name
+station = reg_name
 
 #getting data for divvy trips to/from a given Library using Socrata API
 #Crerar - Ellis Ave %26 58th St; Constructed on June 30, 2013
@@ -119,7 +119,7 @@ if (station == reg_name) {
            visitor_count = Regenstein, Regenstein = NULL,
            is_schyr = if_else(quarter(Date)!=3,1,0),
            school_year = if_else(month(Date)>=10, year(Date),year(Date)-1))
-} else if (station_name == crerar_name) {
+} else if (station == crerar_name) {
   visitors <- df_visitors %>% select(Date.of.Entry,Crerar) %>%
     mutate(Date = mdy(Date.of.Entry), Date.of.Entry=NULL, 
            visitor_count = Crerar, Crerar = NULL,
